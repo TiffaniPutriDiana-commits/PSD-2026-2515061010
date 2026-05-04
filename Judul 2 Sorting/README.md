@@ -27,6 +27,8 @@ Baris 23 : peserta.append([nama, skor]) yaitu Menggabungkan nama dan skor ke dal
 
 Baris 34 : enumerate(peserta, 1) yaitu Digunakan untuk memberikan penomoran peringkat otomatis mulai dari angka 1 saat mencetak hasil.  
 
+<img width="1053" height="604" alt="Screenshot 2026-05-04 221220" src="https://github.com/user-attachments/assets/8cb1850c-da2e-4577-8f52-2b68f970731b" />
+
 
 link YouTube : 
 https://youtu.be/FYKwwtUJN_0?si=CGaj6q19WNvFRaFq
