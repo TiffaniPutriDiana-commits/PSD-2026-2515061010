@@ -50,6 +50,7 @@ Baris 20 : return pos yaitu Mengembalikan posisi indeks target jika ditemukan, a
 
 
 Fungsi main()
+
 Baris 23 : def main(): yaitu Fungsi utama yang menjalankan seluruh logika program
 
 Baris 24 : arr = [2515061101, ...] yaitu Mendeklarasikan array berisi 6 NPM siswa yang sudah terurut secara menaik — syarat wajib agar Binary Search dapat bekerja dengan benar
@@ -85,6 +86,19 @@ Baris 44 : if __name__ == "__main__": yaitu Memastikan fungsi main() hanya dijal
 Baris 45 : main() yaitu Memanggil fungsi utama untuk memulai program
 
 
+ Output : 
+
+ Tampilan saat Data Ditemukan:
+ <img width="927" height="178" alt="Screenshot 2026-05-07 204757" src="https://github.com/user-attachments/assets/a06713a8-faf0-43c7-9e72-b802b09227ac" />
+
+Tampilan saat Data Tidak Ditemukan:
+ <img width="850" height="163" alt="Screenshot 2026-05-07 204806" src="https://github.com/user-attachments/assets/d7dc7370-3935-4a6e-8448-45a036886d1c" />
+
+Tampilan saat Input Tidak Valid:
+<img width="888" height="121" alt="Screenshot 2026-05-07 204814" src="https://github.com/user-attachments/assets/2534c28e-945c-4e6b-aaee-d6b04cdadf8a" />
+
+Link YouTube :
+https://youtu.be/nB6qxPtnt1k?si=EEGcsioJ1ZC071LW
 
 
 
