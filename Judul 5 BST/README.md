@@ -192,3 +192,14 @@ Baris 159 : if __name__ == "__main__": yaitu Memastikan fungsi main() hanya dija
 
 Baris 160 : main() yaitu Memanggil fungsi utama untuk memulai program
 
+Output : 
+
+<img width="1013" height="764" alt="Screenshot 2026-05-26 234955" src="https://github.com/user-attachments/assets/5f3907fa-08b7-44f4-b2f8-0f2f0f15524f" />
+<img width="715" height="670" alt="Screenshot 2026-05-26 235005" src="https://github.com/user-attachments/assets/70f7cf47-8193-444c-b00d-1f1d3dc1abe4" />
+<img width="1179" height="950" alt="Screenshot 2026-05-26 235015" src="https://github.com/user-attachments/assets/b67f8d41-29dc-48ec-bb86-04ea031641b6" />
+<img width="807" height="941" alt="Screenshot 2026-05-26 235030" src="https://github.com/user-attachments/assets/a0eda758-bec6-45c1-b8e1-a3ac46b6620b" />
+<img width="485" height="631" alt="Screenshot 2026-05-26 235036" src="https://github.com/user-attachments/assets/f1d76edb-7978-417c-abb4-1357d692871a" />
+
+Link Youtube : https://youtu.be/3cmlbaqumYk?si=wS1AAB4mHZpFETOT
+
+
