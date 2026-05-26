@@ -22,36 +22,173 @@ Program menyediakan tiga jenis traversal:
 Penjelasan Logika Perbaris : 
 
 Class Node
-BarisKodePenjelasan1class Node:Mendefinisikan kelas Node yang merepresentasikan satu simpul (node) dalam pohon BST2def __init__(self, key):Konstruktor kelas Node yang menerima parameter key sebagai nilai yang disimpan3self.key = keyMenyimpan nilai data node ke atribut key4self.left = NoneMenginisialisasi pointer anak kiri dengan None (belum memiliki anak kiri)5self.right = NoneMenginisialisasi pointer anak kanan dengan None (belum memiliki anak kanan)
+Baris 1 : class Node: yaitu Mendefinisikan kelas Node yang merepresentasikan satu simpul (node) dalam pohon BST
+
+Baris 2 : def __init__(self, key): yaitu Konstruktor kelas Node yang menerima parameter key sebagai nilai yang disimpan
+
+Baris 3 : self.key = key yaitu Menyimpan nilai data node ke atribut key
+
+Baris 4 : self.left = None yaitu Menginisialisasi pointer anak kiri dengan None (belum memiliki anak kiri) 
+
+Baris 5 : self.right = None yaitu Menginisialisasi pointer anak kanan dengan None (belum memiliki anak kanan)
 
 
 Class BSTDasar — Konstruktor & Fungsi insert_node
-BarisKodePenjelasan7class BSTDasar:Mendefinisikan kelas utama yang berisi seluruh operasi BST8def __init__(self):Konstruktor kelas BSTDasar9self.root = NoneMenginisialisasi akar pohon dengan None, menandakan pohon masih kosong11def insert_node(self, root, key):Fungsi rekursif untuk menyisipkan nilai baru ke posisi yang tepat dalam BST12if root is None:Kondisi dasar rekursi: jika posisi kosong, buat node baru di sini13return Node(key)Membuat dan mengembalikan node baru dengan nilai key14if key < root.key:Jika nilai baru lebih kecil dari node saat ini, masuk ke subtree kiri15root.left = self.insert_node(root.left, key)Rekursif ke subtree kiri dan sambungkan hasilnya ke root.left16elif key > root.key:Jika nilai baru lebih besar dari node saat ini, masuk ke subtree kanan17root.right = self.insert_node(root.right, key)Rekursif ke subtree kanan dan sambungkan hasilnya ke root.right18return rootMengembalikan node saat ini (tidak ada perubahan jika nilai sudah ada)
+Baris 8 : class BSTDasar: yaitu Mendefinisikan kelas utama yang berisi seluruh operasi BST
+
+Baris 9 : def __init__(self): yaitu Konstruktor kelas BSTDasar
+
+Baris 10 : self.root = None yaitu Menginisialisasi akar pohon dengan None, menandakan pohon masih kosong
+
+Baris 12 : def insert_node(self, root, key): yaitu Fungsi rekursif untuk menyisipkan nilai baru ke posisi yang tepat dalam BST
+
+Baris 13 : if root is None: yaitu Kondisi dasar rekursi: jika posisi kosong, buat node baru di sini
+
+Baris 14 : return Node(key) yaitu Membuat dan mengembalikan node baru dengan nilai key
+
+Baris 15 : if key < root.key: yaitu Jika nilai baru lebih kecil dari node saat ini, masuk ke subtree kiri
+
+Baris 16 : root.left = self.insert_node(root.left, key) yaitu Rekursif ke subtree kiri dan sambungkan hasilnya ke root.left
+
+Baris 17 : lif key > root.key: yaitu Jika nilai baru lebih besar dari node saat ini, masuk ke subtree kanan
+
+Baris 18 : root.right = self.insert_node(root.right, key) yaitu Rekursif ke subtree kanan dan sambungkan hasilnya ke root.right
+
+Baris 19 : return root yaitu Mengembalikan node saat ini (tidak ada perubahan jika nilai sudah ada)
 
 
 Fungsi insert & search_node
-BarisKodePenjelasan20def insert(self, key):Fungsi publik untuk menyisipkan nilai; memanggil insert_node mulai dari akar21self.root = self.insert_node(self.root, key)Memperbarui akar pohon dengan hasil penyisipan rekursif23def search_node(self, root, key):Fungsi rekursif untuk mencari nilai tertentu dalam BST24if root is None: return FalseKondisi dasar: jika node tidak ditemukan hingga ujung pohon, kembalikan False25if root.key == key: return TrueNilai ditemukan pada node saat ini, kembalikan True26–27if key < root.key:Jika nilai yang dicari lebih kecil, lanjutkan pencarian ke subtree kiri28return self.search_node(root.right, key)Jika tidak lebih kecil, lanjutkan pencarian ke subtree kanan
+Baris 21 : def insert(self, key): yaitu Fungsi publik untuk menyisipkan nilai; memanggil insert_node mulai dari akar
+
+Baris 22 : self.root = self.insert_node(self.root, key) yaitu Memperbarui akar pohon dengan hasil penyisipan rekursif
+
+Baris 24 : def search_node(self, root, key): yaitu Fungsi rekursif untuk mencari nilai tertentu dalam BST
+
+Baris 25 dan 26 : if root is None: return False yaitu Kondisi dasar: jika node tidak ditemukan hingga ujung pohon, kembalikan False
+
+Baris 27 dan 28 : if root.key == key: return True yaitu Nilai ditemukan pada node saat ini, kembalikan True
+
+Baris 29-30 : if key < root.key: yaitu Jika nilai yang dicari lebih kecil, lanjutkan pencarian ke subtree kiri
+
+Baris 31 : return self.search_node(root.right, key) yaitu Jika tidak lebih kecil, lanjutkan pencarian ke subtree kanan
+
+Baris 33 : def search(self, key): yaitu Mendefinisikan fungsi search yang menerima satu input yaitu key (nilai yang dicari).
+
+Baris 34 : return self.search_node(self.root, key) yaitu Memanggil fungsi search_node mulai dari akar pohon (self.root), lalu langsung mengembalikan hasilnya True jika nilai ditemukan, False jika tidak.
 
 
 Fungsi Traversal — inorder, preorder, postorder
-BarisKodePenjelasan31def inorder(self, root):Mendefinisikan traversal Inorder: Kiri → Root → Kanan (menghasilkan urutan naik)32if root is None: returnKondisi dasar rekursi: hentikan jika node kosong33self.inorder(root.left)Kunjungi seluruh subtree kiri terlebih dahulu34print(root.key, end=" ")Cetak nilai node saat ini35self.inorder(root.right)Kunjungi seluruh subtree kanan37def preorder(self, root):Mendefinisikan traversal Preorder: Root → Kiri → Kanan40print(root.key, end=" ")Cetak nilai node saat ini terlebih dahulu sebelum ke anak-anaknya44def postorder(self, root):Mendefinisikan traversal Postorder: Kiri → Kanan → Root47print(root.key, end=" ")Cetak nilai node saat ini setelah kedua subtree selesai dikunjungi
+
+Baris 36 : def inorder(self, root): yaitu Mendefinisikan traversal Inorder: Kiri → Root → Kanan (menghasilkan urutan naik)
+
+Baris 37 & 38 : if root is None: return yaitu Kondisi dasar rekursi: hentikan jika node kosong
+
+Baris 39 : self.inorder(root.left) yaitu Kunjungi seluruh subtree kiri terlebih dahulu
+
+Baris 40 : print(root.key, end=" ") yaitu Cetak nilai node saat ini
+
+Baris 41 : self.inorder(root.right) yaitu Kunjungi seluruh subtree kanan
+
+Baris 43 : def preorder(self, root): yaitu Mendefinisikan traversal Preorder: Root → Kiri → Kanan
+
+Baris 44 & 45 : if root is None: return yaitu Kondisi dasar rekursi: hentikan jika node kosong
+
+Baris 46 : print(root.key, end=" ") yaitu Cetak nilai node saat ini terlebih dahulu sebelum ke anak-anaknya
+
+Baris 47 : self.preorder(root.left) yaitu Memanggil fungsi preorder lagi secara rekursif, tapi kali ini masuk ke anak kiri dari node saat ini.
+
+Baris 48 : self.preorder(root.right) Setelah seluruh subtree kiri selesai dikunjungi, barulah masuk ke anak kanan dari node saat ini secara rekursif.
+
+Baris 50 : def postorder(self, root): yaitu Mendefinisikan traversal Postorder: Kiri → Kanan → Root
+
+Baris 51 & 52 : if root is None: return yaitu Kondisi dasar rekursi: hentikan jika node kosong
+
+Baris 53 : self.postorder(root.left) yaitu Memanggil fungsi postorder secara rekursif ke anak kiri, telusuri seluruh subtree kiri sampai habis dulu.
+
+Baris 54 : self.postorder(root.right) yaitu Setelah subtree kiri selesai, baru telusuri anak kanan secara rekursif sampai habis.
+
+Baris 55 : print(root.key, end=" ") yaitu Cetak nilai node saat ini setelah kedua subtree selesai dikunjungi
 
 
 Fungsi find_min & find_max
-BarisKodePenjelasan49def find_min(self, root):Fungsi untuk menemukan nilai terkecil dalam BST50if root is None: return -1Jika pohon kosong, kembalikan -1 sebagai tanda tidak ada data51current = rootMulai dari akar pohon52while current.left is not None:Terus bergerak ke kiri selama masih ada anak kiri53current = current.leftPindah ke node anak kiri54return current.keyNode paling kiri adalah nilai terkecil dalam BST56def find_max(self, root):Fungsi untuk menemukan nilai terbesar dalam BST59while current.right is not None:Terus bergerak ke kanan selama masih ada anak kanan61return current.keyNode paling kanan adalah nilai terbesar dalam BST
+Baris 57 : def find_min(self, root): yaitu Fungsi untuk menemukan nilai terkecil dalam BST
+
+Baris 58 & 59 : if root is None: return -1 yaitu Jika pohon kosong, kembalikan -1 sebagai tanda tidak ada data
+
+Baris 60 : current = root yaitu Mulai dari akar pohon
+
+Baris 61 : while current.left is not None: yaitu Terus bergerak ke kiri selama masih ada anak kiri
+
+Baris 62 : current = current.left yaitu Pindah ke node anak kiri
+
+Baris 63 : return current.key yaitu Node paling kiri adalah nilai terkecil dalam BST
+
+Baris 65 : def find_max(self, root): yaitu Fungsi untuk menemukan nilai terbesar dalam BST
+
+Baris 66 & 67 : if root is None: return -1 yaitu Jika pohon kosong, kembalikan -1 sebagai tanda tidak ada data
+
+Baris 68 : current = root yaitu Mulai dari akar pohon 
+
+Baris 69 : while current.right is not None: yaitu Terus bergerak ke kanan selama masih ada anak kanan
+
+Baris  71 : return current.key yaitu Node paling kanan adalah nilai terbesar dalam BST
 
 
 Fungsi count_nodes & sum_nodes
-BarisKodePenjelasan63def count_nodes(self, root):Fungsi rekursif untuk menghitung total jumlah node dalam pohon64if root is None: return 0Kondisi dasar: node kosong berkontribusi 065return 1 + self.count_nodes(root.left) + self.count_nodes(root.right)Hitung node saat ini (1) ditambah jumlah node di subtree kiri dan kanan67def sum_nodes(self, root):Fungsi rekursif untuk menjumlahkan seluruh nilai dalam pohon68if root is None: return 0Kondisi dasar: node kosong berkontribusi 069return root.key + self.sum_nodes(root.left) + self.sum_nodes(root.right)Jumlahkan nilai node saat ini dengan seluruh nilai di subtree kiri dan kanan
+Baris 73 : def count_nodes(self, root): yaitu  Fungsi rekursif untuk menghitung total jumlah node dalam pohon
+
+Baris 74 & 75 :  if root is None: return 0 yaitu Kondisi dasar: node kosong berkontribusi 0
+
+Baris 76 : return 1 + self.count_nodes(root.left) + self.count_nodes(root.right) yaitu Hitung node saat ini (1) ditambah jumlah node di subtree kiri dan kanan
+
+Baris 78 : def sum_nodes(self, root): yaitu Fungsi rekursif untuk menjumlahkan seluruh nilai dalam pohon
+
+Baris 79-80 : if root is None: return 0 yaitu Kondisi dasar: node kosong berkontribusi 0
+
+Baris 81 : return root.key + self.sum_nodes(root.left) + self.sum_nodes(root.right) yaitu Jumlahkan nilai node saat ini dengan seluruh nilai di subtree kiri dan kanan
 
 
 Fungsi main() — Inisialisasi & Menu Utama
-BarisKodePenjelasan72def main():Fungsi utama yang menjalankan seluruh logika program73bst = BSTDasar()Membuat objek BST baru yang masih kosong75pilih = 0Inisialisasi variabel pilihan menu76while pilih != 10:Loop utama program; berjalan terus hingga pengguna memilih opsi 10 (Keluar)77–86print(...)Mencetak tampilan menu utama dengan 10 pilihan operasi BST88–91try: pilih = int(input(...))Membaca pilihan menu dari pengguna dan mengubahnya ke integer, dengan penanganan kesalahan input
+Baris 84 : def main(): yaitu Fungsi utama yang menjalankan seluruh logika program
 
+Baris 85 bst = BSTDasar() yaitu Membuat objek BST baru yang masih kosong
+
+Baris 87 : pilih = 0 yaitu Inisialisasi variabel pilihan menu
+
+Baris 88 : while pilih != 10: yaitu Loop utama program; berjalan terus hingga pengguna memilih opsi 10 (Keluar)
+
+Baris 89-99 : print(...) yaitu Mencetak tampilan menu utama dengan 10 pilihan operasi BST
+
+Baris 101-102 : try: pilih = int(input(...)) yaitu Membaca pilihan menu dari pengguna dan mengubahnya ke integer, dengan penanganan kesalahan input
+
+except ValueError:
+print("Input tidak valid!")
+continue
 
 Fungsi main() — Penanganan Setiap Menu
-BarisKodePenjelasan93–97if pilih == 1:Menangani menu "Masukkan nilai": membaca integer dan memasukkannya ke BST via bst.insert()99–105elif pilih == 2:Menangani menu "Cari nilai": mencari nilai di BST via bst.search() dan menampilkan hasilnya107–109elif pilih == 3:Menampilkan traversal Inorder (nilai terurut dari kecil ke besar)111–113elif pilih == 4:Menampilkan traversal Preorder115–117elif pilih == 5:Menampilkan traversal Postorder119elif pilih == 6:Memanggil find_min() dan mencetak nilai terendah dalam BST121elif pilih == 7:Memanggil find_max() dan mencetak nilai tertinggi dalam BST123elif pilih == 8:Memanggil count_nodes() dan mencetak jumlah total siswa (node)125elif pilih == 9:Memanggil sum_nodes() dan mencetak total nilai seluruh siswa127–128elif pilih == 10:Mencetak pesan "Program selesai" dan loop berakhir karena kondisi pilih != 10 tidak terpenuhi
+baris  107-113 : if pilih == 1: yaitu Menangani menu "Masukkan nilai": membaca integer dan memasukkannya ke BST via bst.insert()
 
-Blok Utama
-BarisKodePenjelasan131if __name__ == "__main__":Memastikan fungsi main() hanya dijalankan saat file dieksekusi langsung, bukan saat diimpor sebagai modul132main()Memanggil fungsi utama untuk memulai program
+115-122 : elif pilih == 2: yaitu Menangani menu "Cari nilai": mencari nilai di BST via bst.search() dan menampilkan hasilnya
+
+Baris 125-128 : elif pilih == 3: yaitu Menampilkan traversal Inorder (nilai terurut dari kecil ke besar)
+
+Baris 130-133 : elif pilih == 4: yaitu Menampilkan traversal Preorder
+
+Baris 135-138 : elif pilih == 5: yaitu Menampilkan traversal Postorder
+
+Baris 140-141 : elif pilih == 6: yaitu Memanggil find_min() dan mencetak nilai terendah dalam BST
+
+Baris 143-144 : elif pilih == 7: yaitu Memanggil find_max() dan mencetak nilai tertinggi dalam BST
+
+Baris 146-147 : elif pilih == 8: yaitu Memanggil count_nodes() dan mencetak jumlah total siswa (node)
+
+Baris 149-150 : elif pilih == 9: yaitu Memanggil sum_nodes() dan mencetak total nilai seluruh siswa
+
+Baris 152-153 : elif pilih == 10: yaitu Mencetak pesan "Program selesai" dan loop berakhir karena kondisi pilih != 10 tidak terpenuhi
+
+Baris 155-156 : else: print("Pilihan tidak valid!") yaitu jika angka yang dimasukan tidak sesuai dengan menu
+
+Baris 159 : if __name__ == "__main__": yaitu Memastikan fungsi main() hanya dijalankan saat file dieksekusi langsung, bukan saat diimpor sebagai modul
+
+Baris 160 : main() yaitu Memanggil fungsi utama untuk memulai program
 
