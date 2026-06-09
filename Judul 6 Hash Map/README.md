@@ -107,7 +107,7 @@ Baris 89–93 : if node: node.value['jumlah'] += jumlah yaitu Jika produk sudah 
 
 Baris 96–99 : else: value = {...}; self.hashmap.insert(...) yaitu Jika produk belum ada, buat dictionary value baru lalu masukkan ke hash map dengan insert()
 
-101-103
+Baris 101-103 : 
 
 Method kurangi_produk(self, id_produk, jumlah=1)
 
@@ -205,6 +205,8 @@ Blok Utama
 Baris 303 : if __name__ == "__main__": yaitu Memastikan fungsi main() hanya dijalankan saat file dieksekusi langsung, bukan saat diimpor sebagai modul
 
 Baris 304 : main()Memanggil yaitu  fungsi utama untuk memulai program
+
+link Youtube : 
 
 
 
