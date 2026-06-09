@@ -34,174 +34,185 @@ BarisKodePenjelasan
 Class HashMapSeparateChaining — Inisialisasi & Fungsi Hash
 BarisKodePenjelasan
 
-9class HashMapSeparateChaining:Mendefinisikan class Hash Map yang menggunakan metode Separate Chaining untuk menangani tabrakan (collision)
+10class HashMapSeparateChaining:Mendefinisikan class Hash Map yang menggunakan metode Separate Chaining untuk menangani tabrakan (collision)
 
-10def __init__(self, size=10):Konstruktor hash map dengan ukuran default 10 slot
+11def __init__(self, size=10):Konstruktor hash map dengan ukuran default 10 slot
 
-11self.SIZE = sizeMenyimpan ukuran tabel hash sebagai atribut
+12self.SIZE = sizeMenyimpan ukuran tabel hash sebagai atribut
 
-12self.table = [None] * self.SIZEMembuat array dengan SIZE elemen, seluruhnya diinisialisasi None (semua slot kosong)
+13self.table = [None] * self.SIZEMembuat array dengan SIZE elemen, seluruhnya diinisialisasi None (semua slot kosong)
 
-14def hash_function(self, key):Mendefinisikan fungsi hash untuk memetakan key string ke indeks slot tabel
+16def hash_function(self, key):Mendefinisikan fungsi hash untuk memetakan key string ke indeks slot tabel
 
-15–17total = 0; for karakter in key: total += ord(karakter)Menjumlahkan nilai ASCII setiap karakter pada key menggunakan fungsi bawaan ord()
+17–19total = 0; for karakter in key: total += ord(karakter)Menjumlahkan nilai ASCII setiap karakter pada key menggunakan fungsi bawaan ord()
 
-18return total % self.SIZEMengembalikan sisa bagi total terhadap ukuran tabel sebagai indeks slot yang digunakan
+20return total % self.SIZEMengembalikan sisa bagi total terhadap ukuran tabel sebagai indeks slot yang digunakan
 
 
 Method insert(self, key, value)
 BarisKodePenjelasan
 
-20def insert(self, key, value):Mendefinisikan method untuk menambah node baru atau memperbarui node yang sudah ada pada hash map
+23def insert(self, key, value):Mendefinisikan method untuk menambah node baru atau memperbarui node yang sudah ada pada hash map
 
-21index = self.hash_function(key)Menghitung indeks slot tujuan dengan memanggil fungsi hash
+24index = self.hash_function(key)Menghitung indeks slot tujuan dengan memanggil fungsi hash
 
-22current = self.table[index]Mengambil node pertama pada slot tersebut untuk memulai penelusuran chain
+25current = self.table[index]Mengambil node pertama pada slot tersebut untuk memulai penelusuran chain
 
-23–26while current is not None: if current.key == key:Menelusuri chain; jika key sudah ada maka value-nya diperbarui (update) lalu fungsi langsung kembali
+28–32while current is not None: if current.key == key:Menelusuri chain; jika key sudah ada maka value-nya diperbarui (update) lalu fungsi langsung kembali
 
-27–29new_node = Node(key, value) ... self.table[index] = new_nodeJika key belum ada, buat node baru dan sisipkan di depan chain (prepend) agar operasi insert selalu O(1)
+35–37new_node = Node(key, value) ... self.table[index] = new_nodeJika key belum ada, buat node baru dan sisipkan di depan chain (prepend) agar operasi insert selalu O(1)
 
 
 Method search(self, key)
 BarisKodePenjelasan
 
-31def search(self, key):Mendefinisikan method untuk mencari node berdasarkan key yang diberikan
+40def search(self, key):Mendefinisikan method untuk mencari node berdasarkan key yang diberikan
 
-32–33index = ... current = ...Menghitung indeks slot dan mengambil node awal pada slot yang sesuai
+41–42index = ... current = ...Menghitung indeks slot dan mengambil node awal pada slot yang sesuai
 
-34–37while current is not None: if current.key == key: return currentMenelusuri seluruh node dalam chain; jika key cocok, kembalikan node tersebut
+43–46while current is not None: if current.key == key: return currentMenelusuri seluruh node dalam chain; jika key cocok, kembalikan node tersebut
 
-38return NoneMengembalikan None jika key tidak ditemukan di seluruh chain
+47return NoneMengembalikan None jika key tidak ditemukan di seluruh chain
 
 
 Method remove_key(self, key)
 BarisKodePenjelasan
 
-40def remove_key(self, key):Mendefinisikan method untuk menghapus node dari hash map berdasarkan key
+50def remove_key(self, key):Mendefinisikan method untuk menghapus node dari hash map berdasarkan key
 
-41–43index = ... current = ... prev = NoneMenghitung indeks, mengambil node awal, dan menyiapkan pointer prev untuk melacak node sebelumnya
+54–55while current is not None: if current.key == key:Menelusuri chain; jika key ditemukan, putus sambungan node dari chain
 
-44–51while current is not None: if current.key == key:Menelusuri chain; jika key ditemukan, putus sambungan node dari chain
+56-57 if prev is None: self.table[index] = current.nextJika node yang dihapus adalah kepala chain, jadikan node berikutnya sebagai kepala baru
 
-46if prev is None: self.table[index] = current.nextJika node yang dihapus adalah kepala chain, jadikan node berikutnya sebagai kepala baru
+59prev.next = current.nextJika bukan kepala chain, hubungkan node sebelumnya langsung ke node sesudah node yang dihapus
 
-48prev.next = current.nextJika bukan kepala chain, hubungkan node sebelumnya langsung ke node sesudah node yang dihapus
+60return TrueMengembalikan True sebagai konfirmasi penghapusan berhasil
 
-50return TrueMengembalikan True sebagai konfirmasi penghapusan berhasil
-
-52return FalseMengembalikan False jika key tidak ditemukan di tabel
+63return FalseMengembalikan False jika key tidak ditemukan di tabel
 
 Method display_table(self)
 BarisKodePenjelasan
 
-54def display_table(self):Mendefinisikan method untuk menampilkan seluruh isi struktur hash table, berguna untuk keperluan debug atau verifikasi
+66def display_table(self):Mendefinisikan method untuk menampilkan seluruh isi struktur hash table, berguna untuk keperluan debug atau verifikasi
 
-55–64for i in range(self.SIZE):Iterasi setiap slot tabel dari indeks 0 hingga SIZE-1; jika slot kosong cetak (kosong), jika berisi tampilkan semua node dalam chain dengan format (key, nama) -> hingga None
+68–78 for i in range(self.SIZE):Iterasi setiap slot tabel dari indeks 0 hingga SIZE-1; jika slot kosong cetak (kosong), jika berisi tampilkan semua node dalam chain dengan format (key, nama) -> hingga None
 
 Class KeranjangBelanja — __init__ & tambah_produk
 BarisKodePenjelasan
 
-67class KeranjangBelanja:Mendefinisikan class keranjang belanja yang menggunakan HashMapSeparateChaining sebagai struktur penyimpanan utama
+82class KeranjangBelanja:Mendefinisikan class keranjang belanja yang menggunakan HashMapSeparateChaining sebagai struktur penyimpanan utama
 
-69self.hashmap = HashMapSeparateChaining(size=10)Membuat instance hash map berukuran 10 slot sebagai atribut keranjang
+83-84 def__init__(self) : self.hashmap = HashMapSeparateChaining(size=10)Membuat instance hash map berukuran 10 slot sebagai atribut keranjang
 
-71def tambah_produk(self, id_produk, nama, harga, jumlah=1):Mendefinisikan method untuk menambahkan produk ke keranjang; parameter jumlah memiliki nilai default 1
+87def tambah_produk(self, id_produk, nama, harga, jumlah=1):Mendefinisikan method untuk menambahkan produk ke keranjang; parameter jumlah memiliki nilai default 1
 
-72node = self.hashmap.search(id_produk)Mencari apakah produk dengan ID tersebut sudah ada di keranjang
+88node = self.hashmap.search(id_produk)Mencari apakah produk dengan ID tersebut sudah ada di keranjang
 
-73–75if node: node.value['jumlah'] += jumlahJika produk sudah ada, cukup tambahkan jumlahnya tanpa membuat entri baru
+89–93if node: node.value['jumlah'] += jumlahJika produk sudah ada, cukup tambahkan jumlahnya tanpa membuat entri baru
 
-76–79else: value = {...}; self.hashmap.insert(...)Jika produk belum ada, buat dictionary value baru lalu masukkan ke hash map dengan insert()
+96–99else: value = {...}; self.hashmap.insert(...)Jika produk belum ada, buat dictionary value baru lalu masukkan ke hash map dengan insert()
 
+101-103
 
 Method kurangi_produk(self, id_produk, jumlah=1)
 BarisKodePenjelasan
 
-81def kurangi_produk(self, id_produk, jumlah=1):Mendefinisikan method untuk mengurangi jumlah produk di keranjang; default pengurangan 1 pcs
+106 def kurangi_produk(self, id_produk, jumlah=1):Mendefinisikan method untuk mengurangi jumlah produk di keranjang; default pengurangan 1 pcs
 
-82–84if node is None: print([ERROR]); returnValidasi: jika ID produk tidak ditemukan di keranjang, tampilkan pesan error dan hentikan eksekusi
+108-111if node is None: print([ERROR]); returnValidasi: jika ID produk tidak ditemukan di keranjang, tampilkan pesan error dan hentikan eksekusi
 
-85–87if node.value['jumlah'] <= jumlah:Jika jumlah yang dikurangi lebih besar atau sama dengan stok di keranjang, hapus produk sepenuhnya menggunakan remove_key()
+112–114if node.value['jumlah'] <= jumlah:Jika jumlah yang dikurangi lebih besar atau sama dengan stok di keranjang, hapus produk sepenuhnya menggunakan remove_key()
 
-88–89else: node.value['jumlah'] -= jumlahJika stok masih sisa setelah dikurangi, perbarui nilainya saja tanpa menghapus node
+116–118else: node.value['jumlah'] -= jumlahJika stok masih sisa setelah dikurangi, perbarui nilainya saja tanpa menghapus node
 
 
 Method hapus_produk(self, id_produk)
-BarisKodePenjelasan91def hapus_produk(self, id_produk):Mendefinisikan method untuk menghapus produk sepenuhnya dari keranjang tanpa mempedulikan jumlahnya92–94if node is None: print([ERROR]); returnValidasi: jika ID produk tidak ditemukan, tampilkan pesan error dan hentikan eksekusi95–96self.hashmap.remove_key(id_produk)Memanggil remove_key() pada hash map untuk menghapus node produk dari tabel
+BarisKodePenjelasan
+121-122def hapus_produk(self, id_produk): node = self.hashmap.search(id_produk)
+if node is None:Mendefinisikan method untuk menghapus produk sepenuhnya dari keranjang tanpa mempedulikan jumlahnya
+
+
+123-126if node is None: print([ERROR]); returnValidasi: jika ID produk tidak ditemukan, tampilkan pesan error dan hentikan eksekusi
+
+127–128self.hashmap.remove_key(id_produk)Memanggil remove_key() pada hash map untuk menghapus node produk dari tabel
 
 
 Method cari_produk(self, id_produk)
 BarisKodePenjelasan
 
-98def cari_produk(self, id_produk):Mendefinisikan method untuk mencari dan menampilkan detail lengkap produk di keranjang
+131def cari_produk(self, id_produk):Mendefinisikan method untuk mencari dan menampilkan detail lengkap produk di keranjang
 
-99node = self.hashmap.search(id_produk)Memanggil search() pada hash map untuk menemukan node dengan key ID produk
+132node = self.hashmap.search(id_produk)Memanggil search() pada hash map untuk menemukan node dengan key ID produk
 
-100–106if node: print(ID, Nama, Harga, Jumlah, Subtotal)Jika ditemukan, tampilkan seluruh informasi produk termasuk subtotal hasil perkalian harga dan jumlah
+133–140if node: print(ID, Nama, Harga, Jumlah, Subtotal)Jika ditemukan, tampilkan seluruh informasi produk termasuk subtotal hasil perkalian harga dan jumlah
 
-107else: print([INFO])Jika tidak ditemukan, tampilkan pesan informasi bahwa produk tidak ada di keranjang
+141-142else: print([INFO])Jika tidak ditemukan, tampilkan pesan informasi bahwa produk tidak ada di keranjang
 
 Method tampilkan_keranjang(self)
 BarisKodePenjelasan
 
-109def tampilkan_keranjang(self):Mendefinisikan method untuk menampilkan semua produk dalam keranjang berbentuk tabel struk belanja
+145 def tampilkan_keranjang(self):Mendefinisikan method untuk menampilkan semua produk dalam keranjang berbentuk tabel struk belanja
 
-110–111print("KERANJANG BELANJA ANDA") ... print(header kolom)Mencetak judul dan header kolom tabel: No, ID, Nama Produk, Harga, Qty, Subtotal
+146–147print("KERANJANG BELANJA ANDA") ... print(header kolom)Mencetak judul dan header kolom tabel: No, ID, Nama Produk, Harga, Qty, Subtotal
+150-152 : nilai awal sebelum loop berjalan — ada_isi = False menandai keranjang masih kosong, total = 0 untuk menampung akumulasi harga, dan nomor = 1 untuk nomor urut tampilan tabel.
 
-112–120for i in range(...): while current is not None:Iterasi seluruh slot dan chain hash table untuk mengumpulkan semua produk yang tersimpan
+154–157for i in range(...): while current is not None:Iterasi seluruh slot dan chain hash table untuk mengumpulkan semua produk yang tersimpan
 
-117subtotal = v['harga'] * v['jumlah']Menghitung subtotal setiap baris produk dengan mengalikan harga satuan dan jumlah
+158 subtotal = v['harga'] * v['jumlah'] Menghitung subtotal setiap baris produk dengan mengalikan harga satuan dan jumlah
 
-121–122if not ada_isi: print("(Keranjang kosong)")Jika tidak ada produk di seluruh tabel, tampilkan keterangan keranjang kosong123print(f"  {'TOTAL':>42} Rp {total:>9,.0f}")Mencetak total harga keseluruhan di baris terakhir tabel dengan format rata kanan
+159-162 : total   += subtotal print (...) yaitu  menambahkannya ke total, lalu mencetaknya ke tabel
+
+167–1168 if not ada_isi: print("(Keranjang kosong)")Jika tidak ada produk di seluruh tabel, tampilkan keterangan keranjang kosong
+
+171print(f"  {'TOTAL':>42} Rp {total:>9,.0f}")Mencetak total harga keseluruhan di baris terakhir tabel dengan format rata kanan
 
 Method total_harga(self)
 BarisKodePenjelasan
 
-125def total_harga(self):Mendefinisikan method untuk menghitung dan mengembalikan total harga seluruh produk di keranjang
+174-175 : def total_harga(self): total=0 yaitu Mendefinisikan method untuk menghitung dan mengembalikan total harga seluruh produk di keranjang
 
-126–131for i in range(...): while current is not None: total += ...Menelusuri seluruh slot dan chain hash table, mengakumulasi hasil perkalian harga dan jumlah setiap produk
+176–181for i in range(...): while current is not None: total += ...Menelusuri seluruh slot dan chain hash table, mengakumulasi hasil perkalian harga dan jumlah setiap produk
 
-132return totalMengembalikan nilai total harga sebagai integer
+182return totalMengembalikan nilai total harga sebagai integer
 
 Method checkout(self)
 BarisKodePenjelasan
 
-134def checkout(self):Mendefinisikan method untuk memproses pembayaran dan mengosongkan keranjang setelah transaksi
+185def checkout(self):Mendefinisikan method untuk memproses pembayaran dan mengosongkan keranjang setelah transaksi
 
-135–137if self.total_harga() == 0: print([INFO]); returnValidasi: jika keranjang kosong, batalkan proses checkout dan tampilkan pesan informasi
+186–188if self.total_harga() == 0: print([INFO]); returnValidasi: jika keranjang kosong, batalkan proses checkout dan tampilkan pesan informasi
 
-138self.tampilkan_keranjang()Menampilkan struk belanja lengkap sebelum konfirmasi pembayaran
+189self.tampilkan_keranjang()Menampilkan struk belanja lengkap sebelum konfirmasi pembayaran
 
-139–140print(f"Pembayaran ... berhasil.") ...Mencetak konfirmasi pembayaran berhasil beserta total yang dibayarkan
+190–191print(f"Pembayaran ... berhasil.") ...Mencetak konfirmasi pembayaran berhasil beserta total yang dibayarkan
 
-141self.hashmap.table = [None] * self.hashmap.SIZEMereset seluruh slot hash table ke None, mengosongkan keranjang setelah checkout
+193self.hashmap.table = [None] * self.hashmap.SIZEMereset seluruh slot hash table ke None, mengosongkan keranjang setelah checkout
 
 Fungsi menu() & main()
 BarisKodePenjelasan
 
-144def menu():Mendefinisikan fungsi untuk menampilkan daftar pilihan menu utama program setiap iterasi
+197def menu():Mendefinisikan fungsi untuk menampilkan daftar pilihan menu utama program setiap iterasi
 
-145–152print("SISTEM KERANJANG BELANJA") ... print("8. Keluar")Mencetak 8 opsi menu: tambah, kurangi, hapus, cari, tampilkan keranjang, lihat hash table, checkout, dan keluar
+198–206print("SISTEM KERANJANG BELANJA") ... print("8. Keluar")Mencetak 8 opsi menu: tambah, kurangi, hapus, cari, tampilkan keranjang, lihat hash table, checkout, dan keluar
 
-155def main():Fungsi utama yang menjalankan seluruh alur program secara interaktif
+210def main():Fungsi utama yang menjalankan seluruh alur program secara interaktif
 
-156keranjang = KeranjangBelanja()Membuat instance keranjang belanja baru sebagai objek utama program
+211keranjang = KeranjangBelanja()Membuat instance keranjang belanja baru sebagai objek utama program
 
-157–165katalog = {...}Mendeklarasikan dictionary katalog berisi 8 produk dengan pasangan ID → (nama, harga) sebagai data simulasi
+214-223katalog = {...}Mendeklarasikan dictionary katalog berisi 8 produk dengan pasangan ID → (nama, harga) sebagai data simulasi
 
-166–167pilih = 0; while pilih != 8:Perulangan utama program yang terus berjalan sampai pengguna memilih menu 8 (Keluar)
+226–228pilih = 0; while pilih != 8: menu()Perulangan utama program yang terus berjalan sampai pengguna memilih menu 8 (Keluar)
 
-168–171try: pilih = int(input(...)) except ValueError:Membaca pilihan menu dari pengguna; jika input bukan angka maka tampilkan error dan ulangi
+229–223try: pilih = int(input(...)) except ValueError: print(...) Membaca pilihan menu dari pengguna; jika input bukan angka maka tampilkan error dan ulangi
 
-172–210if pilih == 1: ... elif pilih == 8:Blok kondisi yang mengarahkan ke method keranjang yang sesuai berdasarkan pilihan menu pengguna
+236–300if pilih == 1: ... elif pilih == 8:Blok kondisi yang mengarahkan ke method keranjang yang sesuai berdasarkan pilihan menu pengguna
 
 
 Blok Utama
 BarisKodePenjelasan
-213if __name__ == "__main__":Memastikan fungsi main() hanya dijalankan saat file dieksekusi langsung, bukan saat diimpor sebagai modul
+303if __name__ == "__main__":Memastikan fungsi main() hanya dijalankan saat file dieksekusi langsung, bukan saat diimpor sebagai modul
 
-214main()Memanggil fungsi utama untuk memulai program
+304main()Memanggil fungsi utama untuk memulai program
 
 
 
