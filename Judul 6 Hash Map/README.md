@@ -206,8 +206,8 @@ Baris 303 : if __name__ == "__main__": yaitu Memastikan fungsi main() hanya dija
 
 Baris 304 : main()Memanggil yaitu  fungsi utama untuk memulai program
 
-link Youtube : https://youtu.be/-nuv4Dk7whg
-
+link Youtube : https://youtu.be/VnIAr7CXsdg?si=y1jVfDYnwv7UlOM-
+merevisi link Youtube dikarenakan video tersebut tidak bisa di putar sebagaimana mestinya
 
 
 
